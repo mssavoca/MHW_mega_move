@@ -66,8 +66,6 @@ sp=unique(comb_data_full$species)
 system.time(print(
   foreach(i=1:length(sp),.export = c("plotting_function","comb_data_full","outdir","minx","maxx","miny","maxy"),.packages = c("ggplot2","glue","ggExtra","tidyverse"),.verbose=T) %do% {
     print(sp[i])
-    # dat=comb_data_full %>% filter(species==sp[i])
-    # spp=sp[i]
     plotting_function(spp = sp[i],minx=minx,maxx=maxx,miny=miny,maxy=maxy,outdir=outdir,df=comb_data_full)
   }
 ))
@@ -83,8 +81,6 @@ sp=unique(comb_data_full$species)
 system.time(print(
   foreach(i=1:length(sp),.export = c("plotting_function","comb_data_full","outdir","minx","maxx","miny","maxy"),.packages = c("ggplot2","glue","ggExtra","tidyverse"),.verbose=T) %dopar% {
      print(sp[i])
-    # dat=comb_data_full %>% filter(species==sp[i])
-    # spp=sp[i]
     plotting_function(spp = sp[i],minx=minx,maxx=maxx,miny=miny,maxy=maxy,outdir=outdir,df=comb_data_full)
   }
 ))
