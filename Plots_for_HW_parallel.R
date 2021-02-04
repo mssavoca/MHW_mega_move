@@ -3,7 +3,7 @@
 # batch method # 2 (FASTEST), run in parallel (using multiple cores of your computer at once to make multiple plots at once)
 # batch method # 3 (SLOWEST), map
 
-# load librarias
+# load libraries
 library(tidyverse)
 # devtools::install_github("daattali/ggExtra") # whole mess of package bugs going on -> https://github.com/daattali/ggExtra/issues/75
 library(ggExtra)
@@ -15,8 +15,11 @@ library(doParallel, quietly = TRUE)
 
 # define objects
 # comb_data_full <- read.csv("ebird_npdb_cleaned_01_22_21.csv")
-comb_data_full <- read.csv("/Users/heatherwelch/Dropbox/OLE/data/species_data/ebird_npdb_cleaned_01_22_21.csv")
-outdir="/Users/heatherwelch/Dropbox/OLE/github/MHW_mega_move/plots"
+comb_data_full <- read.csv("ebird_npdb_cleaned_01_22_21.csv")
+
+outdir="/Users/matthewsavoca/Documents/Research Data/MHW_mega_move"
+
+
 
 minx =180
 maxx =250
@@ -64,7 +67,10 @@ dev.off()
 # takes my computer 60 seconds
 sp=unique(comb_data_full$species)
 system.time(print(
-  foreach(i=1:length(sp),.export = c("plotting_function","comb_data_full","outdir","minx","maxx","miny","maxy"),.packages = c("ggplot2","glue","ggExtra","tidyverse"),.verbose=T) %do% {
+  foreach(i=1:length(sp),
+          .export = c("plotting_function","comb_data_full","outdir","minx","maxx","miny","maxy"),
+          .packages = c("ggplot2","glue","ggExtra","tidyverse"),
+          .verbose=T) %do% {
     print(sp[i])
     plotting_function(spp = sp[i],minx=minx,maxx=maxx,miny=miny,maxy=maxy,outdir=outdir,df=comb_data_full)
   }
